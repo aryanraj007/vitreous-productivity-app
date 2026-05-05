@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ios-blue: #007AFF;
+    --ios-green: #34C759;
+    --ios-red: #FF3B30;
+    --ios-orange: #FF9500;
+    --ios-gray: #8E8E93;
+    
+    --bg-primary: #000000;
+    --bg-secondary: #1C1C1E;
+    --bg-tertiary: #2C2C2E;
+    
+    --text-primary: #FFFFFF;
+    --text-secondary: #EBEBF5; /* 60% opacity white usually, or #8E8E93 */
+    --text-tertiary: #EBEBF54D;
+    
+    --separator: rgba(84, 84, 88, 0.65);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", sans-serif;
+    @apply antialiased bg-black text-white min-h-screen overflow-x-hidden selection:bg-blue-500/30;
+    /* iOS devices disable tap highlight */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* iOS Typographic Hierarchy */
+  h1 { @apply text-4xl font-bold tracking-tight; }
+  h2 { @apply text-[22px] font-semibold tracking-tight; }
+  h3 { @apply text-lg font-semibold tracking-normal; }
+  p { @apply text-[17px] leading-normal tracking-normal; }
+  small { @apply text-[12px] font-medium tracking-wide text-gray-500; }
+}
+
+@layer utilities {
+  .ios-transition {
+    @apply transition-all duration-300;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .ios-active-scale {
+    @apply active:scale-95 transition-transform duration-200;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ios-glass {
+    @apply bg-black/70 backdrop-blur-xl border-b border-white/10;
+  }
+  
+  .ios-glass-bottom {
+    @apply bg-black/70 backdrop-blur-xl border-t border-white/10;
+  }
+
+  .ios-input-group {
+    @apply bg-[#1C1C1E] rounded-2xl overflow-hidden;
+  }
+
+  .ios-input-row {
+    @apply relative border-b border-[#38383A] last:border-0;
+  }
+
+  .ios-input {
+    @apply w-full bg-transparent text-[17px] text-white px-4 py-3.5 outline-none placeholder:text-[#EBEBF5]/30;
+  }
+  
+  .ios-btn-primary {
+    @apply bg-[#007AFF] text-white font-semibold text-[17px] py-3.5 px-4 rounded-2xl w-full text-center hover:bg-blue-600 ios-active-scale;
+  }
+  
+  .ios-btn-secondary {
+    @apply bg-[#2C2C2E] text-white font-semibold text-[17px] py-3.5 px-4 rounded-2xl w-full text-center hover:bg-[#3A3A3C] ios-active-scale;
+  }
+}
+
+/* Custom Checkbox / Switch */
+.ios-switch {
+  @apply appearance-none w-14 h-[31px] bg-[#39393D] rounded-full relative cursor-pointer outline-none ios-transition;
+}
+.ios-switch::after {
+  content: '';
+  @apply absolute top-[2px] left-[2px] w-[27px] h-[27px] bg-white rounded-full shadow-sm ios-transition;
+}
+.ios-switch:checked {
+  @apply bg-[#34C759];
+}
+.ios-switch:checked::after {
+  @apply transform translate-x-[25px];
+}
+
+/* Custom animations */
+@keyframes iosSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes iosFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-ios-slide-up {
+  animation: iosSlideUp 0.4s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+.animate-ios-fade-in {
+  animation: iosFadeIn 0.3s ease forwards;
+}
+
+/* Scrollbar styling for a cleaner look */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
